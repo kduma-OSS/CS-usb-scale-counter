@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+    <asmv1:assemblyIdentity name="USBScaleCounter.exe" version="1.0.4.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+    <application>
+        <asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2024/WindowsSettings">
+            <supportedArchitectures>amd64 arm64</supportedArchitectures>
+        </asmv3:windowsSettings>
+    </application>
+    <entryPoint>
+        <assemblyIdentity name="USBScaleCounter" version="1.0.4.0" language="neutral" processorArchitecture="msil" />
+        <commandLine file="USBScaleCounter.exe" parameters="" />
+    </entryPoint>
+    <trustInfo>
+        <security>
+            <applicationRequestMinimum>
+                <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+                <defaultAssemblyRequest permissionSetReference="Custom" />
+            </applicationRequestMinimum>
+            <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+                <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+                <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+            </requestedPrivileges>
+        </security>
+    </trustInfo>
+    <dependency>
+        <dependentOS>
+            <osVersionInfo>
+                <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+            </osVersionInfo>
+        </dependentOS>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+            <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HidClient.dll" size="11264">
+            <assemblyIdentity name="HidClient" version="1.0.1.0" language="neutral" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>NA+Jyd+/LEofBgGOTCFmjeC3sxxwosQz/EPsG0GsHAc=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HidSharp.dll" size="262792">
+            <assemblyIdentity name="HidSharp" version="2.6.4.0" language="neutral" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>2GaQ794w6pF59mkyDzkUiFN5O3Q6mLUxr+rzBZjiL1Q=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScaleLib.dll" size="6656">
+            <assemblyIdentity name="ScaleLib" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>bGYI4Laqx8qWsKJYvzjIVaP9V6lzBwjeXG1llQSV5Bc=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UnitsNet.dll" size="2486784">
+            <assemblyIdentity name="UnitsNet" version="5.0.0.0" publicKeyToken="F8601875A1F041DA" language="neutral" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>rR42A/CRzjGXACk7uI1qlHJSl94YlJwNhd3sJyJTny8=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="fr-CA\UnitsNet.resources.dll" size="5120">
+            <assemblyIdentity name="UnitsNet.resources" version="5.0.0.0" publicKeyToken="F8601875A1F041DA" language="fr-CA" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>0NiryYyRjlmfbOAjFOTC9Bn6pw2wif1sbuzE8w/DFrE=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nb-NO\UnitsNet.resources.dll" size="4608">
+            <assemblyIdentity name="UnitsNet.resources" version="5.0.0.0" publicKeyToken="F8601875A1F041DA" language="nb-NO" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>DvrKHke76B+kZVCw/Npd1dCFi9HPLBw+Yi7WKy0+GEQ=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ru-RU\UnitsNet.resources.dll" size="37888">
+            <assemblyIdentity name="UnitsNet.resources" version="5.0.0.0" publicKeyToken="F8601875A1F041DA" language="ru-RU" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>2RFYNFz1ZZxgQyD5PrpBcEWde7522+xoJrRCXPhR/qQ=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zh-CN\UnitsNet.resources.dll" size="7680">
+            <assemblyIdentity name="UnitsNet.resources" version="5.0.0.0" publicKeyToken="F8601875A1F041DA" language="zh-CN" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>JUOZXCK/eskFKItEeu2ayH66YBzwPQVsqo+vjzpUHdk=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <dependency>
+        <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="USBScaleCounter.exe" size="21504">
+            <assemblyIdentity name="USBScaleCounter" version="1.0.4.0" language="neutral" processorArchitecture="msil" />
+            <hash>
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+                <dsig:DigestValue>5EW6l3oaw9f+c+5zdfjgJPWHj9/oPfR5euElAiEX2nE=</dsig:DigestValue>
+            </hash>
+        </dependentAssembly>
+    </dependency>
+    <file name="USBScaleCounter.exe.config" size="189">
+        <hash>
+            <dsig:Transforms>
+                <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+            </dsig:Transforms>
+            <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+            <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+        </hash>
+    </file>
+</asmv1:assembly>
