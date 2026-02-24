@@ -35,11 +35,11 @@ if (Test-Path $outDir) {
     Remove-Item -Path $outDir -Recurse
 }
 
+nuget restore
 # Publish the application.
 Push-Location $projDir
 try {
     Write-Output "Restoring:"
-    nuget restore
     dotnet restore -r win-x64
     Write-Output "Publishing:"
     $msBuildVerbosityArg = "/v:m"
