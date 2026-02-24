@@ -39,6 +39,7 @@ if (Test-Path $outDir) {
 Push-Location $projDir
 try {
     Write-Output "Restoring:"
+    nuget restore
     dotnet restore -r win-x64
     Write-Output "Publishing:"
     $msBuildVerbosityArg = "/v:m"
