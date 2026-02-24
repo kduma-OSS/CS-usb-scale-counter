@@ -2,6 +2,14 @@
 
 Count identical items quickly and accurately using a Dymo M10 USB postal scale.
 
+## Documentation
+
+Check here for documentation: https://opensource.duma.sh/apps/usb-scale-counter
+
+## Installation
+
+Install using ClickOnce: https://kduma-oss.github.io/CS-usb-scale-counter/USBScaleCounter.application
+
 ## Screenshots
 
 | Disconnected | Empty Scale | Not Enough Items | Exact Count | Too Many Items |
@@ -22,6 +30,6 @@ Count identical items quickly and accurately using a Dymo M10 USB postal scale.
 - Dymo M10 USB postal scale
 - Windows
 
-## Installation
 
-Install using ClickOnce: https://kduma-oss.github.io/CS-usb-scale-counter/USBScaleCounter.application
+
+
