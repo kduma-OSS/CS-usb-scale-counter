@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace USBScaleCounter
 
         public int ExpectedQuantity { get; set; } = 25;
         public double ExpectedWeight { get; set; } = 580;
-
 
         public MainForm()
         {
@@ -59,19 +59,19 @@ namespace USBScaleCounter
                 statusText.Text = $"There is {count} items on scale!";
                 diffText.Text = "OK";
             }
-            else if(count == 0)
+            else if (count == 0)
             {
                 statusPanel.BackColor = SystemColors.Control;
                 statusPanel.ForeColor = SystemColors.ControlText;
                 statusText.Text = $"Place something on scale!";
                 diffText.Text = "Empty";
             }
-            else if(count < ExpectedQuantity)
+            else if (count < ExpectedQuantity)
             {
                 statusPanel.BackColor = Color.Orange;
                 statusPanel.ForeColor = Color.White;
                 statusText.Text = $"Not Enough!";
-                diffText.Text = $"+ {ExpectedQuantity-count}";
+                diffText.Text = $"+ {ExpectedQuantity - count}";
             }
             else
             {
@@ -79,7 +79,6 @@ namespace USBScaleCounter
                 statusPanel.ForeColor = Color.White;
                 statusText.Text = $"Too Much!";
                 diffText.Text = $"- {count - ExpectedQuantity}";
-
             }
         }
 
@@ -97,10 +96,9 @@ namespace USBScaleCounter
             expectedQuantityValue.Text = ExpectedQuantity.ToString(CultureInfo.InvariantCulture);
             expectedWeightValue.Text = ExpectedWeight.ToString(CultureInfo.InvariantCulture);
 
-
             if (_scale.IsConnected)
             {
-                weightText.Text = weightValue.Text = _scale.Weight.Grams.ToString(CultureInfo.InvariantCulture)+" g";
+                weightText.Text = weightValue.Text = _scale.Weight.Grams.ToString(CultureInfo.InvariantCulture) + " g";
                 DoCalculations();
             }
             else
@@ -118,12 +116,12 @@ namespace USBScaleCounter
         private void button1_Click(object sender, EventArgs e)
         {
             var scale = _scale;
-
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            Text += $" ({version})";
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
