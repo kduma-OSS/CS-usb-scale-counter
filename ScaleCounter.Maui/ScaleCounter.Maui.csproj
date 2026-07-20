@@ -19,8 +19,8 @@
 
 		<!-- Versions. ApplicationDisplayVersion is the X.Y.Z name (bumped by the
 		     Android Release workflow); ApplicationVersion is the integer version code. -->
-		<ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationDisplayVersion>1.1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>2</ApplicationVersion>
 
 		<SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
