@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ScaleCounter.Maui.ViewModels"
+             x:Class="ScaleCounter.Maui.Views.CalibrationPage"
+             x:Name="PageRoot"
+             x:DataType="vm:CalibrationViewModel"
+             Title="Calibrate">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <Label Text="Name" FontAttributes="Bold" />
+            <Entry Text="{Binding Name}" Placeholder="e.g. M6 nuts" />
+
+            <Label Text="Target quantity" FontAttributes="Bold" />
+            <Entry Text="{Binding TargetQuantity}" Keyboard="Numeric" />
+
+            <Border Padding="12" StrokeThickness="1">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Add a measurement" FontAttributes="Bold" />
+                    <Label Text="Put a known number of items (0 = empty container for tare) on the scale, enter how many, then capture."
+                           FontSize="12" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Current weight: " />
+                                <Span Text="{Binding CurrentWeightText}" FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                        <Entry Grid.Column="0" Text="{Binding NewQuantity}" Keyboard="Numeric" Placeholder="Quantity" />
+                        <Button Grid.Column="1" Text="Capture" Command="{Binding CaptureCommand}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="Measurements" FontAttributes="Bold" />
+            <CollectionView ItemsSource="{Binding Samples}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SampleRow">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Padding="0,2">
+                            <Label Grid.Column="0" Text="{Binding Display}" FontSize="16" VerticalOptions="Center" />
+                            <Button Grid.Column="1" Text="✕"
+                                    WidthRequest="44" HeightRequest="40" Padding="0" FontSize="16"
+                                    Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.RemoveSampleCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="{Binding ResultText}" FontSize="14" />
+
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" />
+                <Button Text="Save" Command="{Binding SaveCommand}" IsEnabled="{Binding CanSave}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

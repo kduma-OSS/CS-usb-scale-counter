@@ -1,0 +1,428 @@
+[
+  {
+    "Id": "d1b67730af81445c9f3fb4dfff056ae9",
+    "Name": "Empty CD Sleeves",
+    "PerItemWeightGrams": 6.6416289592760185,
+    "TareGrams": -0.23680241327301524,
+    "TargetQuantity": 25,
+    "Samples": [
+      {
+        "Quantity": 1,
+        "WeightGrams": 8
+      },
+      {
+        "Quantity": 2,
+        "WeightGrams": 12
+      },
+      {
+        "Quantity": 3,
+        "WeightGrams": 20
+      },
+      {
+        "Quantity": 4,
+        "WeightGrams": 26
+      },
+      {
+        "Quantity": 5,
+        "WeightGrams": 34
+      },
+      {
+        "Quantity": 6,
+        "WeightGrams": 40
+      },
+      {
+        "Quantity": 7,
+        "WeightGrams": 46
+      },
+      {
+        "Quantity": 8,
+        "WeightGrams": 52
+      },
+      {
+        "Quantity": 9,
+        "WeightGrams": 60
+      },
+      {
+        "Quantity": 10,
+        "WeightGrams": 66
+      },
+      {
+        "Quantity": 11,
+        "WeightGrams": 72
+      },
+      {
+        "Quantity": 12,
+        "WeightGrams": 80
+      },
+      {
+        "Quantity": 13,
+        "WeightGrams": 86
+      },
+      {
+        "Quantity": 14,
+        "WeightGrams": 92
+      },
+      {
+        "Quantity": 15,
+        "WeightGrams": 100
+      },
+      {
+        "Quantity": 16,
+        "WeightGrams": 106
+      },
+      {
+        "Quantity": 17,
+        "WeightGrams": 112
+      },
+      {
+        "Quantity": 18,
+        "WeightGrams": 118
+      },
+      {
+        "Quantity": 19,
+        "WeightGrams": 126
+      },
+      {
+        "Quantity": 20,
+        "WeightGrams": 134
+      },
+      {
+        "Quantity": 21,
+        "WeightGrams": 138
+      },
+      {
+        "Quantity": 22,
+        "WeightGrams": 146
+      },
+      {
+        "Quantity": 23,
+        "WeightGrams": 152
+      },
+      {
+        "Quantity": 24,
+        "WeightGrams": 158
+      },
+      {
+        "Quantity": 25,
+        "WeightGrams": 166
+      },
+      {
+        "Quantity": 26,
+        "WeightGrams": 172
+      },
+      {
+        "Quantity": 27,
+        "WeightGrams": 180
+      },
+      {
+        "Quantity": 28,
+        "WeightGrams": 186
+      },
+      {
+        "Quantity": 29,
+        "WeightGrams": 194
+      },
+      {
+        "Quantity": 30,
+        "WeightGrams": 198
+      },
+      {
+        "Quantity": 31,
+        "WeightGrams": 206
+      },
+      {
+        "Quantity": 32,
+        "WeightGrams": 212
+      },
+      {
+        "Quantity": 33,
+        "WeightGrams": 218
+      },
+      {
+        "Quantity": 34,
+        "WeightGrams": 226
+      },
+      {
+        "Quantity": 35,
+        "WeightGrams": 232
+      },
+      {
+        "Quantity": 36,
+        "WeightGrams": 240
+      },
+      {
+        "Quantity": 37,
+        "WeightGrams": 246
+      },
+      {
+        "Quantity": 38,
+        "WeightGrams": 250
+      },
+      {
+        "Quantity": 39,
+        "WeightGrams": 260
+      },
+      {
+        "Quantity": 40,
+        "WeightGrams": 266
+      },
+      {
+        "Quantity": 41,
+        "WeightGrams": 274
+      },
+      {
+        "Quantity": 42,
+        "WeightGrams": 278
+      },
+      {
+        "Quantity": 43,
+        "WeightGrams": 286
+      },
+      {
+        "Quantity": 44,
+        "WeightGrams": 292
+      },
+      {
+        "Quantity": 45,
+        "WeightGrams": 298
+      },
+      {
+        "Quantity": 46,
+        "WeightGrams": 306
+      },
+      {
+        "Quantity": 47,
+        "WeightGrams": 312
+      },
+      {
+        "Quantity": 48,
+        "WeightGrams": 318
+      },
+      {
+        "Quantity": 49,
+        "WeightGrams": 324
+      },
+      {
+        "Quantity": 50,
+        "WeightGrams": 332
+      },
+      {
+        "Quantity": 0,
+        "WeightGrams": 0
+      }
+    ]
+  },
+  {
+    "Id": "1eecb788bfa54ed1812475bd0775cb25",
+    "Name": "Sleeved CD\u0027s",
+    "PerItemWeightGrams": 22.22733031674208,
+    "TareGrams": -0.54600301659122441,
+    "TargetQuantity": 25,
+    "Samples": [
+      {
+        "Quantity": 0,
+        "WeightGrams": 0
+      },
+      {
+        "Quantity": 1,
+        "WeightGrams": 22
+      },
+      {
+        "Quantity": 2,
+        "WeightGrams": 46
+      },
+      {
+        "Quantity": 3,
+        "WeightGrams": 66
+      },
+      {
+        "Quantity": 4,
+        "WeightGrams": 88
+      },
+      {
+        "Quantity": 5,
+        "WeightGrams": 110
+      },
+      {
+        "Quantity": 6,
+        "WeightGrams": 132
+      },
+      {
+        "Quantity": 7,
+        "WeightGrams": 156
+      },
+      {
+        "Quantity": 8,
+        "WeightGrams": 178
+      },
+      {
+        "Quantity": 9,
+        "WeightGrams": 200
+      },
+      {
+        "Quantity": 10,
+        "WeightGrams": 222
+      },
+      {
+        "Quantity": 11,
+        "WeightGrams": 244
+      },
+      {
+        "Quantity": 12,
+        "WeightGrams": 266
+      },
+      {
+        "Quantity": 13,
+        "WeightGrams": 288
+      },
+      {
+        "Quantity": 14,
+        "WeightGrams": 310
+      },
+      {
+        "Quantity": 15,
+        "WeightGrams": 332
+      },
+      {
+        "Quantity": 16,
+        "WeightGrams": 354
+      },
+      {
+        "Quantity": 17,
+        "WeightGrams": 376
+      },
+      {
+        "Quantity": 18,
+        "WeightGrams": 400
+      },
+      {
+        "Quantity": 19,
+        "WeightGrams": 422
+      },
+      {
+        "Quantity": 20,
+        "WeightGrams": 444
+      },
+      {
+        "Quantity": 21,
+        "WeightGrams": 466
+      },
+      {
+        "Quantity": 22,
+        "WeightGrams": 488
+      },
+      {
+        "Quantity": 23,
+        "WeightGrams": 510
+      },
+      {
+        "Quantity": 24,
+        "WeightGrams": 532
+      },
+      {
+        "Quantity": 25,
+        "WeightGrams": 556
+      },
+      {
+        "Quantity": 26,
+        "WeightGrams": 578
+      },
+      {
+        "Quantity": 27,
+        "WeightGrams": 600
+      },
+      {
+        "Quantity": 28,
+        "WeightGrams": 622
+      },
+      {
+        "Quantity": 29,
+        "WeightGrams": 644
+      },
+      {
+        "Quantity": 30,
+        "WeightGrams": 666
+      },
+      {
+        "Quantity": 31,
+        "WeightGrams": 688
+      },
+      {
+        "Quantity": 32,
+        "WeightGrams": 710
+      },
+      {
+        "Quantity": 33,
+        "WeightGrams": 732
+      },
+      {
+        "Quantity": 34,
+        "WeightGrams": 756
+      },
+      {
+        "Quantity": 35,
+        "WeightGrams": 778
+      },
+      {
+        "Quantity": 36,
+        "WeightGrams": 800
+      },
+      {
+        "Quantity": 37,
+        "WeightGrams": 822
+      },
+      {
+        "Quantity": 38,
+        "WeightGrams": 844
+      },
+      {
+        "Quantity": 39,
+        "WeightGrams": 866
+      },
+      {
+        "Quantity": 40,
+        "WeightGrams": 888
+      },
+      {
+        "Quantity": 41,
+        "WeightGrams": 910
+      },
+      {
+        "Quantity": 42,
+        "WeightGrams": 934
+      },
+      {
+        "Quantity": 43,
+        "WeightGrams": 956
+      },
+      {
+        "Quantity": 44,
+        "WeightGrams": 978
+      },
+      {
+        "Quantity": 45,
+        "WeightGrams": 1000
+      },
+      {
+        "Quantity": 46,
+        "WeightGrams": 1022
+      },
+      {
+        "Quantity": 47,
+        "WeightGrams": 1044
+      },
+      {
+        "Quantity": 48,
+        "WeightGrams": 1066
+      },
+      {
+        "Quantity": 49,
+        "WeightGrams": 1088
+      },
+      {
+        "Quantity": 50,
+        "WeightGrams": 1112
+      }
+    ]
+  }
+]
