@@ -8,4 +8,7 @@
   </Configurations>
   <Project Path="ScaleLib/ScaleLib.csproj" Id="30bd5417-a811-445f-bb61-bea669683a2e" />
   <Project Path="USBScaleCounter/USBScaleCounter.csproj" Id="f43425ae-faa0-4cdd-95fe-60091dd08f84" />
+  <Project Path="ScaleCounter.Core/ScaleCounter.Core.csproj" />
+  <Project Path="ScaleCounter.Core.Tests/ScaleCounter.Core.Tests.csproj" />
+  <Project Path="ScaleCounter.Maui/ScaleCounter.Maui.csproj" />
 </Solution>

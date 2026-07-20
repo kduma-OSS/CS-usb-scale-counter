@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Digital-readout scale glyph, drawn within the adaptive-icon safe zone (~66% center).
+     The "12" is 7-segment geometry (rectangles), not text, so it renders identically
+     everywhere regardless of available fonts. -->
+<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- weighing platform -->
+    <rect x="123" y="142" width="210" height="24" rx="12" fill="#ffffff" />
+    <!-- scale body -->
+    <rect x="88" y="164" width="280" height="150" rx="30" fill="#ffffff" />
+    <!-- display window -->
+    <rect x="122" y="190" width="212" height="96" rx="16" fill="#1E103F" />
+
+    <!-- 7-segment readout "12" (lit segments only) -->
+    <g fill="#22C55E">
+        <!-- digit "1" (right verticals) -->
+        <rect x="210" y="215" width="9" height="19" rx="4.5" />
+        <rect x="210" y="242.5" width="9" height="19" rx="4.5" />
+        <!-- digit "2" (a, b, g, e, d) -->
+        <rect x="246" y="206" width="20" height="9" rx="4.5" />
+        <rect x="266" y="215" width="9" height="19" rx="4.5" />
+        <rect x="246" y="233.5" width="20" height="9" rx="4.5" />
+        <rect x="237" y="242.5" width="9" height="19" rx="4.5" />
+        <rect x="246" y="261" width="20" height="9" rx="4.5" />
+    </g>
+</svg>

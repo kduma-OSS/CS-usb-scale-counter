@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ScaleCounter.Maui.ViewModels"
+             xmlns:core="clr-namespace:ScaleCounter.Core;assembly=ScaleCounter.Core"
+             x:Class="ScaleCounter.Maui.Views.PresetsPage"
+             x:Name="PageRoot"
+             x:DataType="vm:PresetsViewModel"
+             Title="Presets">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
+        <ToolbarItem Text="Import" Clicked="OnImportClicked" />
+        <ToolbarItem Text="Defaults" Clicked="OnLoadDefaultsClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*" Padding="12" RowSpacing="8">
+
+        <Label Grid.Row="0" FontSize="14">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Active preset: " />
+                    <Span Text="{Binding ActiveName}" FontAttributes="Bold" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Presets}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="core:WeighedItemPreset">
+                    <Border Padding="12" Margin="0,4" StrokeThickness="1">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
+                            <Label FontSize="13">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0:0.##} g/item · tare {1:0.##} g · target {2}">
+                                        <Binding Path="PerItemWeightGrams" />
+                                        <Binding Path="TareGrams" />
+                                        <Binding Path="TargetQuantity" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <FlexLayout Wrap="Wrap" JustifyContent="Start">
+                                <Button Text="Use" Margin="0,0,8,4"
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.SelectCommand}"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Edit" Margin="0,0,8,4"
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.EditCommand}"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Share" Margin="0,0,8,4"
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.ShareCommand}"
+                                        CommandParameter="{Binding .}" />
+                                <Button Text="Delete" Margin="0,0,8,4"
+                                        Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteCommand}"
+                                        CommandParameter="{Binding .}" />
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -1,23 +1,148 @@
 name: Release
 
+# One-button release for the whole product. Manually dispatched: bump the app
+# version, tag it vX.Y.Z, create a GitHub release, then build both platforms —
+# the signed Android APK (attached to the release) and the desktop ClickOnce
+# build (published to the gh-pages install site) — all at the same version.
+
 on:
-  push:
-    tags: [v*]
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version bump type"
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+      version:
+        description: "Explicit version X.Y.Z (overrides bump when set)"
+        required: false
+        type: string
 
 jobs:
-  release:
-    runs-on: windows-latest
-
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push version-bump commit, tag and release
+    outputs:
+      tag: ${{ steps.bump.outputs.tag }}
+      version: ${{ steps.bump.outputs.version }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need tags to detect collisions
+
+      - name: Bump version
+        id: bump
+        run: |
+          csproj=ScaleCounter.Maui/ScaleCounter.Maui.csproj
+          current=$(sed -n 's:.*<ApplicationDisplayVersion>\(.*\)</ApplicationDisplayVersion>.*:\1:p' "$csproj" | head -n1)
+          code=$(sed -n 's:.*<ApplicationVersion>\(.*\)</ApplicationVersion>.*:\1:p' "$csproj" | head -n1)
+          if [ -n "${{ inputs.version }}" ]; then
+            new="${{ inputs.version }}"
+          else
+            IFS='.' read -r major minor patch <<< "$current"
+            case "${{ inputs.bump }}" in
+              major) new="$((major + 1)).0.0" ;;
+              minor) new="${major}.$((minor + 1)).0" ;;
+              *)     new="${major}.${minor}.$((patch + 1))" ;;
+            esac
+          fi
+          if ! [[ "$new" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Invalid version: $new (expected X.Y.Z)"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/v$new" >/dev/null; then
+            echo "::error::Tag v$new already exists"
+            exit 1
+          fi
+          new_code=$((code + 1))
+          sed -i "s:<ApplicationDisplayVersion>.*</ApplicationDisplayVersion>:<ApplicationDisplayVersion>${new}</ApplicationDisplayVersion>:" "$csproj"
+          sed -i "s:<ApplicationVersion>.*</ApplicationVersion>:<ApplicationVersion>${new_code}</ApplicationVersion>:" "$csproj"
+          echo "version=$new" >> "$GITHUB_OUTPUT"
+          echo "code=$new_code" >> "$GITHUB_OUTPUT"
+          echo "tag=v$new" >> "$GITHUB_OUTPUT"
+
+      - name: Commit, tag and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ScaleCounter.Maui/ScaleCounter.Maui.csproj
+          git commit -m "chore: release ${{ steps.bump.outputs.tag }} (versionCode ${{ steps.bump.outputs.code }})"
+          git tag "${{ steps.bump.outputs.tag }}"
+          git push origin HEAD "refs/tags/${{ steps.bump.outputs.tag }}"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.bump.outputs.tag }}" \
+            --title "${{ steps.bump.outputs.tag }}" \
+            --generate-notes
+
+  # Build the signed APK and attach it to the release.
+  android:
+    needs: prepare
+    permissions:
+      contents: write
+    uses: ./.github/workflows/android.yml
+    with:
+      release-tag: ${{ needs.prepare.outputs.tag }}
+    secrets: inherit
+
+  # Attach the runnable desktop build (zip) to the release AND publish the
+  # ClickOnce build to the gh-pages install site.
+  desktop:
+    needs: prepare
+    runs-on: windows-latest
+    permissions:
+      contents: write # gh release upload + push to gh-pages
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.tag }} # release.ps1 reads the version from the tag
+          fetch-depth: 0
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
 
       - name: Setup Git
         run: |
           git config --global url."https://user:${{ secrets.GITHUB_TOKEN }}@github".insteadOf https://github
           git config --global user.name github-actions
-          git config --global user.email github-actions@github.com          
+          git config --global user.email github-actions@github.com
 
-      - name: Run release script
+      # Build the runnable (non-ClickOnce) desktop binary — same steps as the
+      # desktop build-check workflow — so it can be zipped and downloaded.
+      - name: Build desktop (Release)
+        run: |
+          dotnet build ScaleCounter.Core/ScaleCounter.Core.csproj -c Release
+          nuget restore ScaleLib/packages.config -PackagesDirectory packages
+          nuget restore USBScaleCounter/packages.config -PackagesDirectory packages
+          msbuild USBScaleCounter/USBScaleCounter.csproj /p:Configuration=Release /p:Platform=AnyCPU
+
+      - name: Package desktop zip
+        id: zip
+        shell: pwsh
+        run: |
+          $name = "usb-scale-counter-desktop-${{ needs.prepare.outputs.tag }}.zip"
+          Compress-Archive -Path USBScaleCounter/bin/Release/* -DestinationPath $name -Force
+          "name=$name" >> $env:GITHUB_OUTPUT
+
+      - name: Upload desktop zip to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ needs.prepare.outputs.tag }}" "${{ steps.zip.outputs.name }}" --clobber
+
+      - name: Publish ClickOnce to gh-pages
         shell: pwsh
         run: ./release.ps1

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ScaleCounter.Maui.ViewModels"
+             x:Class="ScaleCounter.Maui.Views.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="USB Scale Counter">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding SoundToggleText}" Command="{Binding ToggleSoundCommand}" />
+        <ToolbarItem Text="Presets" Command="{Binding GoToPresetsCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto,Auto"
+          Padding="16,12,16,16" RowSpacing="8"
+          BackgroundColor="{Binding BackgroundColor}">
+
+        <!-- Status message -->
+        <Label Grid.Row="0"
+               Text="{Binding StatusText}"
+               TextColor="{Binding ForegroundColor}"
+               FontSize="22"
+               MaxLines="2"
+               LineBreakMode="WordWrap"
+               HorizontalTextAlignment="Center" />
+
+        <!-- Big difference / OK / Empty indicator -->
+        <Label Grid.Row="1"
+               Text="{Binding DiffText}"
+               TextColor="{Binding ForegroundColor}"
+               FontSize="72" FontAttributes="Bold"
+               MaxLines="1"
+               LineBreakMode="NoWrap"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               HorizontalTextAlignment="Center" />
+
+        <!-- Current weight -->
+        <Label Grid.Row="2"
+               Text="{Binding WeightText}"
+               TextColor="{Binding ForegroundColor}"
+               FontSize="24"
+               HorizontalTextAlignment="Center" />
+
+        <!-- Progress toward the target quantity -->
+        <VerticalStackLayout Grid.Row="3" Spacing="2">
+            <ProgressBar Progress="{Binding Progress}" />
+            <Label Text="{Binding ProgressText}"
+                   TextColor="{Binding ForegroundColor}"
+                   FontSize="18"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <!-- Preset · connection · status (single line, truncates to fit) -->
+        <Label Grid.Row="4"
+               Text="{Binding FooterText}"
+               TextColor="{Binding ForegroundColor}"
+               FontSize="12"
+               MaxLines="1"
+               LineBreakMode="TailTruncation"
+               HorizontalTextAlignment="Center" />
+    </Grid>
+</ContentPage>

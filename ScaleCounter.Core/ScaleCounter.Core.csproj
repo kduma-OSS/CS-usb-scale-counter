@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- netstandard2.0 so BOTH the .NET 9 MAUI app and the .NET Framework 4.7.2
+         WinForms desktop app can reference this shared logic. -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ScaleCounter.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Same version as the desktop app so Mass arithmetic is byte-identical. -->
+    <PackageReference Include="UnitsNet" Version="5.75.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Bundled default presets (a .uscpreset document), parsed by each app's serializer. -->
+    <EmbeddedResource Include="DefaultPresets.json" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,130 @@
+name: Android
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'ScaleCounter.Core/**'
+      - 'ScaleCounter.Core.Tests/**'
+      - 'ScaleCounter.Maui/**'
+      - '.github/workflows/android.yml'
+  pull_request:
+    paths:
+      - 'ScaleCounter.Core/**'
+      - 'ScaleCounter.Core.Tests/**'
+      - 'ScaleCounter.Maui/**'
+      - '.github/workflows/android.yml'
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      release-tag:
+        description: "Existing GitHub release tag to upload the APK to (e.g. v1.2.3)"
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # gh release upload
+    env:
+      # Single JSON secret: {"keystoreBase64": "...", "keystorePassword": "...",
+      #                      "keyAlias": "...", "keyPassword": "..."}
+      # keyPassword is optional and defaults to keystorePassword.
+      # When absent (e.g. PRs from forks) the APK is debug-signed instead.
+      RELEASE_SIGNING: ${{ secrets.RELEASE_SIGNING }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # When called from the Release workflow, build exactly the tagged commit.
+          ref: ${{ inputs.release-tag || github.ref }}
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      # Pure-logic tests build with just the base SDK and gate the rest.
+      - name: Test core logic
+        run: dotnet test ScaleCounter.Core.Tests/ScaleCounter.Core.Tests.csproj -c Release
+
+      # Ensure the required Android SDK components (API 35 platform, build-tools) are present.
+      - name: Install Android SDK components
+        run: dotnet build ScaleCounter.Maui/ScaleCounter.Maui.csproj -t:InstallAndroidDependencies -p:AcceptAndroidSDKLicenses=True
+
+      - name: Unpack signing secret
+        if: env.RELEASE_SIGNING != ''
+        run: |
+          store_pwd=$(jq -r '.keystorePassword' <<< "$RELEASE_SIGNING")
+          key_alias=$(jq -r '.keyAlias' <<< "$RELEASE_SIGNING")
+          key_pwd=$(jq -r '.keyPassword // .keystorePassword' <<< "$RELEASE_SIGNING")
+          # GitHub masks the whole secret, not values extracted from it — mask them.
+          echo "::add-mask::$store_pwd"
+          echo "::add-mask::$key_pwd"
+          jq -r '.keystoreBase64' <<< "$RELEASE_SIGNING" | base64 -d > "$RUNNER_TEMP/release.keystore"
+          {
+            echo "RELEASE_KEYSTORE=$RUNNER_TEMP/release.keystore"
+            echo "RELEASE_KEYSTORE_PASSWORD=$store_pwd"
+            echo "RELEASE_KEY_ALIAS=$key_alias"
+            echo "RELEASE_KEY_PASSWORD=$key_pwd"
+          } >> "$GITHUB_ENV"
+
+      # Signs with the release keystore when RELEASE_SIGNING is present, otherwise
+      # produces a debug-signed APK so fork PRs still build. Passwords are read from
+      # the environment (env: prefix) so they never appear on the command line.
+      - name: Build APK
+        run: |
+          args=(ScaleCounter.Maui/ScaleCounter.Maui.csproj -c Release -f net9.0-android)
+          if [ -n "$RELEASE_KEYSTORE" ]; then
+            echo "Signing with the release keystore."
+            args+=(
+              -p:AndroidKeyStore=true
+              -p:AndroidSigningKeyStore="$RELEASE_KEYSTORE"
+              -p:AndroidSigningStorePass=env:RELEASE_KEYSTORE_PASSWORD
+              -p:AndroidSigningKeyAlias="$RELEASE_KEY_ALIAS"
+              -p:AndroidSigningKeyPass=env:RELEASE_KEY_PASSWORD
+            )
+          else
+            echo "RELEASE_SIGNING not set — building a debug-signed APK."
+          fi
+          dotnet publish "${args[@]}"
+
+      - name: Name APK
+        id: apk
+        run: |
+          version=$(sed -n 's:.*<ApplicationDisplayVersion>\(.*\)</ApplicationDisplayVersion>.*:\1:p' ScaleCounter.Maui/ScaleCounter.Maui.csproj | head -n1)
+          name="usb-scale-counter-v${version}.apk"
+          publish=ScaleCounter.Maui/bin/Release/net9.0-android/publish
+          src=$(ls "$publish"/*-Signed.apk 2>/dev/null | head -n1)
+          [ -z "$src" ] && src=$(ls "$publish"/*.apk 2>/dev/null | head -n1)
+          if [ -z "$src" ]; then
+            echo "No APK found under $publish" >&2
+            exit 1
+          fi
+          cp "$src" "$name"
+          echo "Named $src -> $name"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.apk.outputs.name }}
+          path: ${{ steps.apk.outputs.name }}
+          if-no-files-found: error
+
+      - name: Publish APK to GitHub release
+        if: inputs.release-tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ inputs.release-tag }}" "${{ steps.apk.outputs.name }}" --clobber

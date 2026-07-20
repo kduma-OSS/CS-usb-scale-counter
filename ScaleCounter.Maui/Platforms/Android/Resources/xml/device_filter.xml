@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Dymo M10 postal scale. Android requires decimal VID/PID here:
+	     0x0922 = 2338 (Dymo/Sanford), 0x8003 = 32771 (M10). -->
+	<usb-device vendor-id="2338" product-id="32771" />
+</resources>

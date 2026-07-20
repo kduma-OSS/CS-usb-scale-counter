@@ -1,0 +1,59 @@
+name: Desktop (build check)
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'ScaleLib/**'
+      - 'ScaleCounter.Core/**'
+      - 'USBScaleCounter/**'
+      - '.github/workflows/desktop.yml'
+  pull_request:
+    paths:
+      - 'ScaleLib/**'
+      - 'ScaleCounter.Core/**'
+      - 'USBScaleCounter/**'
+      - '.github/workflows/desktop.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      # Shared logic (netstandard2.0, PackageReference) — build it first so the
+      # WinForms project can reference the produced assembly.
+      - name: Build shared core
+        run: dotnet build ScaleCounter.Core/ScaleCounter.Core.csproj -c Release
+
+      # Restore the packages.config dependencies for the .NET Framework projects.
+      - name: Restore desktop packages
+        run: |
+          nuget restore ScaleLib/packages.config -PackagesDirectory packages
+          nuget restore USBScaleCounter/packages.config -PackagesDirectory packages
+
+      # Compile-check the WinForms desktop app (it can only be built on Windows).
+      - name: Build desktop (compile check)
+        run: msbuild USBScaleCounter/USBScaleCounter.csproj /p:Configuration=Release /p:Platform=AnyCPU
+
+      # Publish the runnable build so it can be downloaded and tested.
+      - name: Upload desktop build
+        uses: actions/upload-artifact@v4
+        with:
+          name: usb-scale-counter-desktop
+          path: USBScaleCounter/bin/Release/
+          if-no-files-found: error
