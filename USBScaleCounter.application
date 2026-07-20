@@ -14,14 +14,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Application Files\USBScaleCounter_1_0_5_0\USBScaleCounter.exe.manifest" size="9884">
+    <dependentAssembly dependencyType="install" codebase="Application Files\USBScaleCounter_1_1_0_0\USBScaleCounter.exe.manifest" size="11127">
       <assemblyIdentity name="USBScaleCounter.exe" version="1.0.5.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gg3DVmnrG6CKD3h7jy6lhTZZmOvGYYV1TgmiGC7NWSs=</dsig:DigestValue>
+        <dsig:DigestValue>WgGYjgTploc83s3jn9/AfvjtDU4jYsbU4379M6dXwIc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
